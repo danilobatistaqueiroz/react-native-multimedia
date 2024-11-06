@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet, Image, Platform } from 'react-native';
+import { StyleSheet, Image, Platform, Button } from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
@@ -7,13 +7,30 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
+import SoundPlayer from 'react-native-sound-player'
+
 export default function TabTwoScreen() {
+
+  function play(){
+    try {
+      // play the file tone.mp3
+      //SoundPlayer.playSoundFile('deep', 'mp3')
+      // or play from url
+      //SoundPlayer.playUrl('@/assets/deep.mp3')
+      // or play file from folder
+      SoundPlayer.playAsset(require('@/assets/deep.mp3'))
+    } catch (e) {
+        console.log(`cannot play the sound file`, e)
+    }
+  }
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
       headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Explore</ThemedText>
+        <Button title={"tocar o som"} onPress={()=>{play()}}/>
       </ThemedView>
       <ThemedText>This app includes example code to help you get started.</ThemedText>
       <Collapsible title="File-based routing">
